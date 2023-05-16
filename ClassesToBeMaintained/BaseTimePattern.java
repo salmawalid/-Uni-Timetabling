@@ -77,15 +77,28 @@ public abstract class BaseTimePattern implements Serializable {
 	public void setName(String name) { iName = name; }
 
 	public Integer getMinPerMtg() { return iMinPerMtg; }
-	public void setMinPerMtg(Integer minPerMtg) { iMinPerMtg = minPerMtg; }
-
-
+	public void setMinPerMtg(Integer minPerMtg) {
+    		if (minPerMtg != null && minPerMtg <= 0) {
+        		throw new IllegalArgumentException("Minimum minutes per meeting must be a positive integer.");
+   		}
+    		iMinPerMtg = minPerMtg;
+	}
+	
 	public Integer getSlotsPerMtg() { return iSlotsPerMtg; }
-	public void setSlotsPerMtg(Integer slotsPerMtg) { iSlotsPerMtg = slotsPerMtg; }
-
+	public void setSlotsPerMtg(Integer slotsPerMtg) {
+    	if (slotsPerMtg != null && slotsPerMtg <= 0) {
+        throw new IllegalArgumentException("Slots per meeting must be a positive integer.");
+    	}
+    	iSlotsPerMtg = slotsPerMtg;
+	}
 
 	public Integer getNrMeetings() { return iNrMeetings; }
-	public void setNrMeetings(Integer nrMeetings) { iNrMeetings = nrMeetings; }
+	public void setNrMeetings(Integer nrMeetings) {
+    	if (nrMeetings != null && nrMeetings < 0) {
+        throw new IllegalArgumentException("Number of meetings must be a non-negative integer.");
+    	}
+    	iNrMeetings = nrMeetings;
+		}
 
 
 	public Integer getBreakTime() { return iBreakTime; }
@@ -163,7 +176,7 @@ public abstract class BaseTimePattern implements Serializable {
 			"\n	SlotsPerMtg: " + getSlotsPerMtg() +
 			"\n	Type: " + getType() +
 			"\n	UniqueId: " + getUniqueId() +
-			"\n	Visible: " + getVisible() +
+			"\n	Visible: " + getVisible() +
 			"]";
 	}
 }
