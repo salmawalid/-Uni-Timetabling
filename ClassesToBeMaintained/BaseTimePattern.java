@@ -79,21 +79,40 @@ public abstract class BaseTimePattern implements Serializable {
 	public Integer getMinPerMtg() { return iMinPerMtg; }
 	public void setMinPerMtg(Integer minPerMtg) { iMinPerMtg = minPerMtg; }
 
+
 	public Integer getSlotsPerMtg() { return iSlotsPerMtg; }
 	public void setSlotsPerMtg(Integer slotsPerMtg) { iSlotsPerMtg = slotsPerMtg; }
+
 
 	public Integer getNrMeetings() { return iNrMeetings; }
 	public void setNrMeetings(Integer nrMeetings) { iNrMeetings = nrMeetings; }
 
+
 	public Integer getBreakTime() { return iBreakTime; }
-	public void setBreakTime(Integer breakTime) { iBreakTime = breakTime; }
+	public void setBreakTime(Integer breakTime) {
+    	if (breakTime != null && breakTime < 0) {
+        throw new IllegalArgumentException("Break time must be a non-negative integer.");
+    	}
+    	iBreakTime = breakTime;
+	}
+
 
 	public Integer getType() { return iType; }
-	public void setType(Integer type) { iType = type; }
+	public void setType(TimePatternType type) {
+    	if (type == null) {
+        throw new IllegalArgumentException("Time pattern type must not be null.");
+    	}
+    	iType = type;
+	}
 
 	public Boolean isVisible() { return iVisible; }
 	public Boolean getVisible() { return iVisible; }
-	public void setVisible(Boolean visible) { iVisible = visible; }
+	public void setVisible(Boolean visible) {
+    	if (visible == null) {
+        throw new IllegalArgumentException("Visible must not be null.");
+    	}
+    	iVisible = visible;
+	}
 
 	public Session getSession() { return iSession; }
 	public void setSession(Session session) { iSession = session; }
