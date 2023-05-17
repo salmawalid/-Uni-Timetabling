@@ -70,10 +70,20 @@ public abstract class BaseSubjectArea implements Serializable {
 	public void setExternalUniqueId(String externalUniqueId) { iExternalUniqueId = externalUniqueId; }
 
 	public String getSubjectAreaAbbreviation() { return iSubjectAreaAbbreviation; }
-	public void setSubjectAreaAbbreviation(String subjectAreaAbbreviation) { iSubjectAreaAbbreviation = subjectAreaAbbreviation; }
+	public void setSubjectAreaAbbreviation(String subjectAreaAbbreviation) {
+		if (subjectAreaAbbreviation == null || !subjectAreaAbbreviation.matches("^[A-Za-z0-9]{1,10}$")) {
+			throw new IllegalArgumentException("Subject Area Abbreviation should be between 1-10 alphanumeric characters.");
+		}
+		iSubjectAreaAbbreviation = subjectAreaAbbreviation;
+	}
 
 	public String getTitle() { return iTitle; }
-	public void setTitle(String title) { iTitle = title; }
+	public void setTitle(String title) {
+		if (title == null || title.trim().isEmpty() || title.length() > 50) {
+			throw new IllegalArgumentException("Title should not be empty and less than or equal to 50 characters.");
+		}
+		iTitle = title;
+	}
 
 	public Session getSession() { return iSession; }
 	public void setSession(Session session) { iSession = session; }
